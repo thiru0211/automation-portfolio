@@ -8,9 +8,10 @@ window.addEventListener("load", () => {
 // ======================
 // SCROLL TO SKILLS
 // ======================
-function scrollToSection() {
-    document.getElementById("skills")?.scrollIntoView({
-        behavior: "smooth"
+function scrollToSkills() {
+    document.getElementById("skills").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
     });
 }
 
@@ -48,42 +49,66 @@ window.addEventListener("scroll", () => {
 });
 
 // ===============================
-// ✅ PROJECTS HORIZONTAL DRAG SCROLL
+// ✅ SKILLS → EXPERIENCE DOWN ARROW
 // ===============================
 window.addEventListener("load", () => {
-    const slider = document.querySelector(".projects-container");
-    if (!slider) return;
+    const scrollDownBtn = document.querySelector(".scroll-down");
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    if (!scrollDownBtn) return;
 
-    slider.addEventListener("mousedown", (e) => {
-        isDown = true;
-        slider.classList.add("dragging");
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-
-    slider.addEventListener("mouseleave", () => {
-        isDown = false;
-        slider.classList.remove("dragging");
-    });
-
-    slider.addEventListener("mouseup", () => {
-        isDown = false;
-        slider.classList.remove("dragging");
-    });
-
-    slider.addEventListener("mousemove", (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        slider.scrollLeft = scrollLeft - walk;
+    scrollDownBtn.addEventListener("click", () => {
+        document.getElementById("experience")?.scrollIntoView({
+            behavior: "smooth"
+        });
+        scrollDownBtn.classList.add("hide");
     });
 });
+
+// ===============================
+// ✅ AUTO-HIDE SKILLS DOWN ARROW
+// ===============================
+window.addEventListener("scroll", () => {
+    const arrow = document.querySelector(".scroll-down");
+    const skillsSection = document.getElementById("skills");
+
+    if (!arrow || !skillsSection) return;
+
+    const skillsBottom = skillsSection.getBoundingClientRect().bottom;
+
+    // Hide arrow once user scrolls past Skills section
+    if (skillsBottom < window.innerHeight * 0.7) {
+        arrow.classList.add("hide");
+    } else {
+        arrow.classList.remove("hide");
+    }
+});
+
+// ===============================
+// ✅ CONTACT → SCROLL TO TOP
+// ===============================
+window.addEventListener("scroll", () => {
+    const scrollUpBtn = document.querySelector(".scroll-up");
+    const contactSection = document.getElementById("contact");
+
+    if (!scrollUpBtn || !contactSection) return;
+
+    const contactTop = contactSection.getBoundingClientRect().top;
+
+    // Show button when Contact section enters viewport
+    if (contactTop < window.innerHeight * 0.6) {
+        scrollUpBtn.classList.add("show");
+    } else {
+        scrollUpBtn.classList.remove("show");
+    }
+});
+
+document.querySelector(".scroll-up")?.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
 
 // ===============================
 // THREE.JS 3D BACKGROUND (ONLY UI BACKGROUND)
