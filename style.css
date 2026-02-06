@@ -195,6 +195,21 @@ body {
 .hero button:hover {
     transform: scale(1.08);
 }
+.hero-role {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #38bdf8;
+    letter-spacing: 0.8px;
+}
+
+.hero-summary {
+    max-width: 760px;
+    margin-top: 14px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
 
 /* =========================
    SECTION BASE
@@ -560,6 +575,7 @@ section {
 
 .tech-stack {
     display: block;
+    text-align: center; 
     margin-top: 15px;
     font-size: 0.9rem;
     color: #38bdf8;
