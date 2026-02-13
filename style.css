@@ -50,6 +50,13 @@ section {
     height: 100vh;
     z-index: -2;
 }
+.hero-description {
+    text-align: justify;          /* ✅ justify text */
+    text-justify: inter-word;     /* better spacing */
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 20px auto;
+}
 
 .content {
     position: relative;
@@ -467,7 +474,11 @@ section {
 
 .timeline {
     position: relative;
+    max-width: 1350px;
+    margin: 0 auto;        /* ✅ perfectly centers container */
+    padding: 60px 0;
 }
+
 .timeline-date {
     position: absolute;
     top: 18px;
@@ -494,7 +505,18 @@ section {
     );
     box-shadow: 0 0 15px rgba(0, 200, 255, 0.6);
 }
+.timeline-item {
+    position: relative;
+    width: 52%;
+}
 
+.timeline-item:nth-child(odd) {
+    left: -4%;
+}
+
+.timeline-item:nth-child(even) {
+    left: 52%;
+}
 .timeline-item::after {
      display: none;
 }
