@@ -67,7 +67,7 @@ section {
 
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: linear-gradient(
         to bottom,
@@ -665,19 +665,15 @@ section {
     transform: translateX(-50%) scaleX(1);
 }
 
+/* Space between SKILLS grid and TOOLS heading */
+#skills .skills-container + .section-title {
+    margin-top: 90px;   /* ✅ controls gap between skills & tools */
+}
 
+#skills .section-title {
+    margin-bottom: 50px;  /* space between heading and its grid */
+}
 
-/* .timeline-dot {
-    position: absolute;
-    top: 32px;
-    left: 90%;
-    width: 16px;
-    height: 16px;
-    background: #38bdf8;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
-} */
 #skills {
     padding-top: 80px;
     padding-bottom: 120px;
@@ -686,6 +682,13 @@ section {
     align-items: center;
     position: relative;
 }
+
+@media (max-width: 768px) {
+    #skills .skills-container + .section-title {
+        margin-top: 60px;
+    }
+}
+
 #experience,
 #projects,
 #contact {
@@ -945,4 +948,168 @@ section {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+/* =========================
+   MOBILE RESPONSIVE ENHANCEMENTS
+   (Non-destructive – overrides only)
+========================= */
+
+@media (max-width: 1024px) {
+
+    section {
+        padding: 70px 6%;
+    }
+
+    .projects-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .skills-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    /* NAVBAR */
+    .navbar {
+        justify-content: center;
+        padding: 16px 6%;
+    }
+
+    .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* HERO */
+    .hero h1 {
+        font-size: 2.4rem;
+        line-height: 1.2;
+    }
+
+    .hero-role {
+        font-size: 1.1rem;
+    }
+
+    .hero-summary {
+        font-size: 0.95rem;
+        padding: 0 10px;
+    }
+
+    /* SKILLS */
+    .skills-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .skill {
+        min-width: unset;
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* TIMELINE */
+    .timeline::before {
+        left: 8px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        padding-left: 30px;
+    }
+
+    .timeline-date {
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    /* PROJECTS */
+    .projects-container {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 20px 10px;
+    }
+
+    .project-card {
+        min-height: auto;
+    }
+
+    /* CONTACT */
+    .contact-box {
+        padding: 26px;
+    }
+
+    .contact-box p {
+        font-size: 1rem;
+    }
+}
+
+/* =========================
+   SMALL MOBILE (≤480px)
+========================= */
+@media (max-width: 480px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero button {
+        padding: 12px 26px;
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .timeline-item {
+        padding: 22px;
+    }
+
+    .scroll-down {
+        bottom: 25px;
+    }
+}
+
+/* =========================
+   FIX HORIZONTAL OVERFLOW
+========================= */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+/* =========================
+   REMOVE TIMELINE LINE – MOBILE ONLY
+========================= */
+
+@media (max-width: 768px) {
+
+    /* Hide vertical center line */
+    .timeline::before {
+        display: none;
+    }
+
+    /* Optional: remove glow shadow spacing */
+    .timeline {
+        padding-left: 0;
+    }
 }
