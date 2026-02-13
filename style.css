@@ -17,6 +17,7 @@ body {
     margin: 0;
     overflow-y: auto;          
     overflow-x: hidden;
+    overflow-y: auto;
     background-color: #0b1220;
     color: #ffffff;
 }
@@ -59,7 +60,7 @@ section {
 
 body::before {
     content: "";
-    position: fixed;
+    position: absolute;
     inset: 0;
     background: linear-gradient(
         to bottom,
@@ -70,6 +71,43 @@ body::before {
     z-index: -1;
 }
 
+/* =========================
+   BLUE NEON OUTLINE – CARDS
+========================= */
+.neon-card {
+    position: relative;
+    border-radius: 18px;
+
+    /* Blue outline */
+    border: 1.5px solid rgba(0, 180, 255, 0.45);
+
+    /* Outer glow */
+    box-shadow:
+        0 0 12px rgba(0, 180, 255, 0.25),
+        0 0 30px rgba(0, 180, 255, 0.15);
+
+    transition: 
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+.neon-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 200, 255, 0.9);
+
+    box-shadow:
+        0 0 18px rgba(0, 200, 255, 0.6),
+        0 0 45px rgba(0, 200, 255, 0.35),
+        inset 0 0 12px rgba(0, 200, 255, 0.15);
+}
+.neon-card::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 180, 255, 0.25);
+    pointer-events: none;
+}
 /* =========================
    BLUE NEON OUTLINE – CARDS
 ========================= */
@@ -429,9 +467,14 @@ section {
 
 .timeline {
     position: relative;
-    max-width: 1350px;
-    margin: 0 auto;
-    padding: 60px 0;
+}
+.timeline-date {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-size: 0.9rem;
+    color: #38bdf8;
+    font-weight: 600;
 }
 
 /* Vertical glowing line */
@@ -600,30 +643,19 @@ section {
     transform: translateX(-50%) scaleX(1);
 }
 
-.timeline-item {
-    position: relative;
-    width: 52%;
-}
 
-.timeline-item:nth-child(odd) {
-    left: -5%;;
-}
 
-.timeline-item:nth-child(even) {
-    left: 53%;
-}
-
-Dot positioning fix
-.timeline-item:nth-child(2)::after {
-    left: -33px;
-}
-
-.timeline-item:nth-child(1)::after,
-.timeline-item:nth-child(3)::after {
-    right: -33px;
-    left: auto;
-}
-
+/* .timeline-dot {
+    position: absolute;
+    top: 32px;
+    left: 90%;
+    width: 16px;
+    height: 16px;
+    background: #38bdf8;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+} */
 #skills {
     padding-top: 80px;
     padding-bottom: 120px;
@@ -891,216 +923,4 @@ Dot positioning fix
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
-}
-.sub-title {
-    margin-top: 60px;
-    font-size: 28px;
-    opacity: 0.9;
-}
-
-
-
-/* =========================
-   RESPONSIVE - PROJECTS
-========================= */
-
-@media (max-width: 900px) {
-    .projects-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .projects-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* html, body {
-    
-    overflow-x: hidden;
-} */
-.project-card p {
-    text-align: justify;
-}
-
-@media (max-width: 768px) {
-    .project-card p {
-        text-align: left; /* avoid awkward spacing on mobile */
-    }
-}
-@media (max-width: 768px) {
-    .navbar {
-        padding: 12px 6%;
-    }
-
-    .nav-links {
-        gap: 18px;
-    }
-
-    .nav-links a {
-        font-size: 0.9rem;
-    }
-}
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.4rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .hero button {
-        padding: 12px 26px;
-        font-size: 0.95rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-}
-@media (max-width: 768px) {
-    .skills-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 22px;
-    }
-
-    .skill {
-        font-size: 16px;
-        height: 54px;
-    }
-}
-
-@media (max-width: 480px) {
-    .skills-container {
-        grid-template-columns: 1fr;
-    }
-}
-@media (max-width: 768px) {
-    .timeline::before {
-        display: none;
-    }
-
-    .timeline-date {
-        right: auto;
-        left: 0;
-    }
-}
-@media (max-width: 1100px) {
-    .projects-container {
-        grid-template-columns: repeat(2, minmax(300px, 1fr));
-        gap: 40px;
-    }
-}
-
-@media (max-width: 768px) {
-    .projects-container {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 30px 16px;
-    }
-
-    .project-card {
-        padding: 24px 20px;
-    }
-
-    .project-card h3 {
-        font-size: 16px;
-        min-height: auto;
-        letter-spacing: 0.8px;
-    }
-
-    .project-card .project-type {
-        font-size: 13px;
-        margin-bottom: 12px;
-    }
-
-    .tech-stack {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-    .project-card {
-        padding: 22px 18px;
-    }
-
-    .project-card h3 {
-        font-size: 15px;
-    }
-
-    .project-card p {
-        font-size: 13.5px;
-        line-height: 1.55;
-    }
-}
-@media (hover: none) {
-    .project-card:hover {
-        transform: none;
-        box-shadow: none;
-    }
-
-    .project-card:hover h3::after {
-        width: 0;
-        opacity: 0;
-        animation: none;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .timeline-date {
-        position: relative;     /* remove absolute positioning */
-        top: 0;
-        left: 0;
-        right: auto;
-
-        display: block;
-        margin-bottom: 8px;
-        font-size: 0.85rem;
-        color: #38bdf8;
-        font-weight: 600;
-    }
-}
-@media (max-width: 768px) {
-    .timeline-item:nth-child(odd),
-    .timeline-item:nth-child(even) {
-        left: 0;
-    }
-}
-@media (max-width: 768px) {
-    .timeline-item {
-        width: 100%;
-        left: 0 !important;
-        padding: 20px;
-        text-align: left;
-    }
-
-    .timeline-item h3 {
-        font-size: 1.05rem;
-    }
-
-    .role {
-        font-size: 0.95rem;
-    }
-
-    .work-highlights li {
-        font-size: 0.9rem;
-        line-height: 1.5;
-    }
-}
-
-
-/* ===============================
-   MOBILE: JUSTIFY PROJECT DETAILS
-=============================== */
-@media (max-width: 768px) {
-    .project-card p {
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto;
-    }
 }
