@@ -137,7 +137,10 @@ window.addEventListener("load", () => {
         antialias: true
     });
     renderer.setClearColor(0x0b1220, 1);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(
+        document.documentElement.clientWidth,
+        document.documentElement.clientHeight
+    ); 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // ======================
@@ -199,9 +202,16 @@ window.addEventListener("load", () => {
     // RESPONSIVE
     // ======================
     window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect =
+            document.documentElement.clientWidth /
+            document.documentElement.clientHeight;
+
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        renderer.setSize(
+            document.documentElement.clientWidth,
+            document.documentElement.clientHeight
+        );
     });
 
 });

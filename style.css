@@ -3,7 +3,8 @@
 ========================= */
 
 html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow: visible;
 }
 
 * {
@@ -15,26 +16,21 @@ html {
 
 body {
     margin: 0;
-    overflow-y: auto;          
-    overflow-x: hidden;
     overflow-y: auto;
     background-color: #0b1220;
     color: #ffffff;
 }
+
 .page {
     position: relative;
-    min-height: 100vh;
 }
+
 /* =========================
    SCROLL OFFSET FIX
 ========================= */
 
 :root {
-    --header-height: 100px; /* height of your fixed navbar */
-}
-
-section {
-    scroll-margin-top: var(--header-height);
+    --header-height: 100px;
 }
 
 
@@ -46,13 +42,15 @@ section {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    inset: 0;
     z-index: -2;
 }
+
 .hero-description {
-    text-align: justify;          /* ✅ justify text */
-    text-justify: inter-word;     /* better spacing */
+    text-align: justify;
+    text-justify: inter-word;
     line-height: 1.7;
     max-width: 900px;
     margin: 20px auto;
@@ -61,7 +59,6 @@ section {
 .content {
     position: relative;
     z-index: 1;
-    min-height: 100vh;
     padding-top: var(--header-height);
 }
 
@@ -69,11 +66,9 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(2, 6, 23, 0.25),
-        rgba(2, 6, 23, 0.65)
-    );
+    background: linear-gradient(to bottom,
+            rgba(2, 6, 23, 0.25),
+            rgba(2, 6, 23, 0.65));
     pointer-events: none;
     z-index: -1;
 }
@@ -93,11 +88,12 @@ body::before {
         0 0 12px rgba(0, 180, 255, 0.25),
         0 0 30px rgba(0, 180, 255, 0.15);
 
-    transition: 
+    transition:
         transform 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
 }
+
 .neon-card:hover {
     transform: translateY(-6px);
     border-color: rgba(0, 200, 255, 0.9);
@@ -107,43 +103,7 @@ body::before {
         0 0 45px rgba(0, 200, 255, 0.35),
         inset 0 0 12px rgba(0, 200, 255, 0.15);
 }
-.neon-card::before {
-    content: "";
-    position: absolute;
-    inset: 6px;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 180, 255, 0.25);
-    pointer-events: none;
-}
-/* =========================
-   BLUE NEON OUTLINE – CARDS
-========================= */
-.neon-card {
-    position: relative;
-    border-radius: 18px;
 
-    /* Blue outline */
-    border: 1.5px solid rgba(0, 180, 255, 0.45);
-
-    /* Outer glow */
-    box-shadow:
-        0 0 12px rgba(0, 180, 255, 0.25),
-        0 0 30px rgba(0, 180, 255, 0.15);
-
-    transition: 
-        transform 0.3s ease,
-        box-shadow 0.3s ease,
-        border-color 0.3s ease;
-}
-.neon-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 200, 255, 0.9);
-
-    box-shadow:
-        0 0 18px rgba(0, 200, 255, 0.6),
-        0 0 45px rgba(0, 200, 255, 0.35),
-        inset 0 0 12px rgba(0, 200, 255, 0.15);
-}
 .neon-card::before {
     content: "";
     position: absolute;
@@ -167,14 +127,15 @@ body::before {
     align-items: center;
 
     /* background: rgba(2, 6, 23, 0.4);  */
-    backdrop-filter: none;        
+    backdrop-filter: none;
 
     transition: background 0.4s ease, box-shadow 0.4s ease;
     z-index: 1000;
 }
 
 .navbar.scrolled {
-    background: rgba(2, 6, 23, 0.92); /* solid dark */
+    background: rgba(2, 6, 23, 0.92);
+    /* solid dark */
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
 }
 
@@ -190,7 +151,7 @@ body::before {
     text-decoration: none;
     color: #38bdf8;
     font-size: 1rem;
-   transition:
+    transition:
         color 0.3s ease,
         text-shadow 0.3s ease;
 }
@@ -200,19 +161,28 @@ body::before {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: -2px;
     width: 100%;
     height: 2px;
-    background: #38bdf8;
+
+    background: linear-gradient(90deg,
+            #38bdf8,
+            #7dd3fc,
+            #38bdf8);
 
     transform: scaleX(0);
-    transform-origin: left;
+    transform-origin: center;
     transition: transform 0.4s ease;
 
+    /* 🌟 Always-on neon glow */
     box-shadow:
-        0 0 6px rgba(56, 189, 248, 0.8),
-        0 0 14px rgba(56, 189, 248, 0.6);
+        0 0 6px rgba(56, 189, 248, 0.6),
+        0 0 14px rgba(56, 189, 248, 0.45),
+        0 0 24px rgba(56, 189, 248, 0.25);
+
+    opacity: 0.85;
 }
+
 
 .nav-links a.active {
     text-shadow:
@@ -231,20 +201,20 @@ body::before {
 ========================= */
 
 .hero {
-    min-height: 100vh;
-    padding-top: 80px;
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--header-height);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    overflow: visible;   
 }
 
 .hero-content {
-    max-width: 900px;          
+    max-width: 900px;
     width: 100%;
-    margin: 0 auto;           
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -262,7 +232,10 @@ body::before {
 }
 
 .hero h1 span {
+    position: relative;
     color: #38bdf8;
+
+    animation: nameGlow 2.5s ease-in-out infinite alternate;
 }
 
 .hero p {
@@ -303,6 +276,7 @@ body::before {
 .hero button:hover {
     transform: scale(1.08);
 }
+
 .hero-role {
     margin-top: 10px;
     font-size: 1.3rem;
@@ -321,15 +295,6 @@ body::before {
 
 
 /* =========================
-   SECTION BASE
-========================= */
-
-section {
-   height: auto;
-    padding: 90px 10%;
-}
-
-/* =========================
    SKILLS
 ========================= */
 
@@ -341,7 +306,8 @@ section {
 
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* exactly 3 per row */
+    grid-template-columns: repeat(3, 1fr);
+    /* exactly 3 per row */
     gap: 25px;
 
     /* max-width: 900px;
@@ -352,13 +318,16 @@ section {
 }
 
 .skill {
-    min-width: 260px;          /* enough width for long text */
+    min-width: 260px;
+    /* enough width for long text */
     padding: 16px 20px;
     text-align: center;
-    white-space: nowrap;       /* 🔥 forces single line */
+    white-space: nowrap;
+    /* 🔥 forces single line */
     overflow: hidden;
-    text-overflow: ellipsis;   /* optional safety */
-    
+    text-overflow: ellipsis;
+    /* optional safety */
+
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(120, 200, 255, 0.3);
     border-radius: 14px;
@@ -378,7 +347,7 @@ section {
     font-weight: 500;
     letter-spacing: 0.4px;
 
-    transition: 
+    transition:
         border-color 0.25s ease,
         outline-color 0.25s ease,
         transform 0.25s ease;
@@ -407,6 +376,7 @@ section {
 .skill:hover::after {
     opacity: 1;
 }
+
 .skill.active {
     border-color: #00bfff;
 }
@@ -422,7 +392,7 @@ section {
 }
 
 .scroll-down .chevron {
-    display: block;  
+    display: block;
     width: 26px;
     height: 26px;
     border-right: 3px solid #7dd3fc;
@@ -434,12 +404,19 @@ section {
 
 /* Bounce animation */
 @keyframes arrowBounce {
-    0%, 20%, 50%, 80%, 100% {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
         transform: rotate(45deg) translateY(0);
     }
+
     40% {
         transform: rotate(45deg) translateY(8px);
     }
+
     60% {
         transform: rotate(45deg) translateY(4px);
     }
@@ -449,6 +426,7 @@ section {
 .scroll-down:hover .chevron {
     box-shadow: 0 0 22px rgba(125, 211, 252, 1);
 }
+
 /* Hide arrow smoothly */
 .scroll-down.hide {
     opacity: 0;
@@ -475,7 +453,8 @@ section {
 .timeline {
     position: relative;
     max-width: 1350px;
-    margin: 0 auto;        /* ✅ perfectly centers container */
+    margin: 0 auto;
+    /* ✅ perfectly centers container */
     padding: 60px 0;
 }
 
@@ -497,28 +476,29 @@ section {
     transform: translateX(-50%);
     width: 3px;
     height: 100%;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        #00c8ff,
-        transparent
-    );
+    background: linear-gradient(to bottom,
+            transparent,
+            #00c8ff,
+            transparent);
     box-shadow: 0 0 15px rgba(0, 200, 255, 0.6);
 }
+
 .timeline-item {
     position: relative;
     width: 52%;
+    max-width: calc(50% - 40px);
 }
 
 .timeline-item:nth-child(odd) {
-    left: -4%;
+    left: 0;
 }
 
 .timeline-item:nth-child(even) {
     left: 52%;
 }
+
 .timeline-item::after {
-     display: none;
+    display: none;
 }
 
 /* Dot position */
@@ -529,14 +509,17 @@ section {
 .timeline-item:nth-child(even)::after {
     left: -33px;
 }
+
 .timeline-date {
     position: absolute;
 
     /* Align to company name baseline */
-    top: calc(32px + 1.3rem);   /* padding-top + font-size */
+    top: calc(32px + 1.3rem);
+    /* padding-top + font-size */
     right: 24px;
 
-    transform: translateY(-100%); /* snap to text baseline */
+    transform: translateY(-100%);
+    /* snap to text baseline */
 
     padding: 6px 14px;
     font-size: 0.85rem;
@@ -561,6 +544,7 @@ section {
     color: #00c8ff;
     font-size: 1rem;
 }
+
 .work-highlights {
     margin-top: 15px;
     padding-left: 18px;
@@ -578,9 +562,11 @@ section {
 }
 
 .role-label {
-    color: #38bdf8;          /* brand blue */
+    color: #38bdf8;
+    /* brand blue */
     font-weight: 600;
 }
+
 .work-highlights {
     list-style: none;
     padding-left: 0;
@@ -604,10 +590,12 @@ section {
     font-size: 1.4rem;
     line-height: 1;
 }
+
 .work-highlights strong {
     color: #38bdf8;
     font-weight: 600;
 }
+
 .section-title {
     position: relative;
     text-align: center;
@@ -647,12 +635,10 @@ section {
     width: 120px;
     height: 3px;
 
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #7dd3fc,
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            #7dd3fc,
+            transparent);
 
     transform: translateX(-50%) scaleX(0);
     transform-origin: center;
@@ -666,12 +652,14 @@ section {
 }
 
 /* Space between SKILLS grid and TOOLS heading */
-#skills .skills-container + .section-title {
-    margin-top: 90px;   /* ✅ controls gap between skills & tools */
+#skills .skills-container+.section-title {
+    margin-top: 90px;
+    /* ✅ controls gap between skills & tools */
 }
 
 #skills .section-title {
-    margin-bottom: 50px;  /* space between heading and its grid */
+    margin-bottom: 50px;
+    /* space between heading and its grid */
 }
 
 #skills {
@@ -684,7 +672,7 @@ section {
 }
 
 @media (max-width: 768px) {
-    #skills .skills-container + .section-title {
+    #skills .skills-container+.section-title {
         margin-top: 60px;
     }
 }
@@ -692,26 +680,31 @@ section {
 #experience,
 #projects,
 #contact {
-    min-height: auto;   /* ✅ important */
+    min-height: auto;
+    /* ✅ important */
     padding-bottom: 140px;
 }
+
 .timeline-item {
-    padding-top: 56px; /* space for date badge */
+    padding-top: 56px;
+    /* space for date badge */
 }
+
 .timeline-item {
     position: relative;
-    width: 52%;              
-    max-width: 640px; 
+    width: 52%;
+    max-width: 640px;
     padding: 28px;
     border-radius: 16px;
     background: rgba(15, 23, 42, 0.88);
     backdrop-filter: blur(8px);
     margin-bottom: 50px;
-     transition:
+    transition:
         opacity 0.45s ease,
         transform 0.45s ease,
         box-shadow 0.3s ease;
 }
+
 .timeline-item.reveal {
     opacity: 0;
     transform: translateY(60px);
@@ -721,6 +714,7 @@ section {
     opacity: 1;
     transform: translateY(0);
 }
+
 .timeline-item:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 50px rgba(56, 189, 248, 0.35);
@@ -751,38 +745,46 @@ section {
     font-size: 2.6rem;
     margin-bottom: 60px;
 }
+
 .project-card h3 {
     text-transform: uppercase;
     text-align: center;
     letter-spacing: 1px;
     position: relative;
     font-weight: 700;
-    min-height: 10px;              /* equal space for all titles */
+    min-height: 10px;
+    /* equal space for all titles */
     line-height: 2;
     margin-bottom: 18px;
     color: #35c9ff;
 }
+
 .project-card .project-type {
     text-align: center;
-    min-height: 20px;              /* same space everywhere */
+    min-height: 20px;
+    /* same space everywhere */
     line-height: 1.4;
     margin-bottom: 18px;
     margin-top: 14px;
-    font-style: normal; 
+    font-style: normal;
     font-size: 14px;
     font-weight: 600;
     color: #9aaec2;
 }
+
 .project-card p {
-    
+
     line-height: 1.6;
 }
 
 .projects-container {
     display: grid;
-    grid-template-columns: repeat(3, minmax(360px, 1fr)); /* wider cards */
-    gap: 50px 60px; /* row-gap | column-gap */
-    max-width: 1600px; /* increase overall width */
+    grid-template-columns: repeat(3, minmax(360px, 1fr));
+    /* wider cards */
+    gap: 50px 60px;
+    /* row-gap | column-gap */
+    max-width: 1600px;
+    /* increase overall width */
     margin: 0 auto;
     padding: 40px 20px;
 }
@@ -793,7 +795,8 @@ section {
     background: rgba(10, 20, 40, 0.9);
     border-radius: 18px;
     padding: 25px;
-    min-height: 280px; /* SAME height for all cards */
+    min-height: 280px;
+    /* SAME height for all cards */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -816,44 +819,46 @@ section {
 
 .tech-stack {
     display: block;
-    text-align: center; 
+    text-align: center;
     margin-top: 15px;
     font-size: 0.9rem;
     color: #38bdf8;
 }
+
 .project-card h3::after {
     content: "";
     position: absolute;
     left: 50%;
     bottom: -4px;
 
-    width: 0;                  /* hidden initially */
+    width: 0;
     height: 2px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #35c9ff,
-        #6fe3ff,
-        #35c9ff,
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            #35c9ff,
+            #6fe3ff,
+            #35c9ff,
+            transparent);
 
     transform: translateX(-50%);
     opacity: 0;
 
-    transition: 
+    transition:
         width 0.45s ease,
         opacity 0.3s ease,
         box-shadow 0.45s ease;
 }
+
 .project-card:hover h3::after {
-    width: 200px;               /* expands left & right */
+    width: 200px;
+    /* expands left & right */
     opacity: 1;
 
     box-shadow:
         0 0 8px rgba(53, 201, 255, 0.8),
         0 0 18px rgba(53, 201, 255, 0.6);
 }
+
 .project-card:hover h3::after {
     animation: glowPulse 1.5s infinite alternate;
 }
@@ -862,6 +867,7 @@ section {
     from {
         box-shadow: 0 0 6px rgba(53, 201, 255, 0.6);
     }
+
     to {
         box-shadow: 0 0 18px rgba(53, 201, 255, 1);
     }
@@ -894,20 +900,24 @@ section {
     margin: 15px 0;
     font-size: 1.1rem;
 }
+
 .gmail-icon {
     color: #38bdf8;
     margin-right: 10px;
     font-size: 1.2rem;
     vertical-align: middle;
 }
+
 .phone-icon {
     color: #38bdf8;
     margin-right: 10px;
     font-size: 1.2rem;
     vertical-align: middle;
 }
+
 .linkedin-icon {
-    color: #0A66C2; /* LinkedIn official blue */
+    color: #0A66C2;
+    /* LinkedIn official blue */
     margin-right: 10px;
     font-size: 1.2rem;
     vertical-align: middle;
@@ -949,6 +959,7 @@ section {
     opacity: 1;
     transform: translateY(0);
 }
+
 /* =========================
    MOBILE RESPONSIVE ENHANCEMENTS
    (Non-destructive – overrides only)
@@ -973,6 +984,15 @@ section {
 /* =========================
    TABLET & MOBILE
 ========================= */
+@media (max-width: 480px) {
+
+    .hero-summary,
+    .hero-description {
+        font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+    }
+}
+
+
 @media (max-width: 768px) {
 
     /* NAVBAR */
@@ -997,62 +1017,80 @@ section {
         font-size: 1.1rem;
     }
 
-    .hero-summary {
-        font-size: 0.95rem;
-        padding: 0 10px;
+    
+    .hero-description {
+        font-size: clamp(0.9rem, 3.5vw, 1.05rem);
     }
+}
 
-    /* SKILLS */
-    .skills-container {
-        grid-template-columns: 1fr;
-        gap: 18px;
-    }
+/* SKILLS */
+.skills-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* single column */
+    gap: 18px;
+    width: 100%;
+    max-width: 360px;
+    /* 👈 same width for all */
+    margin: 0 auto;
+}
 
-    .skill {
-        min-width: unset;
-        white-space: normal;
-        text-align: center;
-    }
+.skill {
+    width: 100%;
+    /* 👈 same width */
+    min-height: 56px;
+    /* 👈 same height */
+    display: flex;
+    /* center text */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-    /* TIMELINE */
-    .timeline::before {
-        left: 8px;
-    }
+    white-space: normal;
+    /* allow wrap */
+    padding: 12px 16px;
+    line-height: 1.4;
+}
 
-    .timeline-item {
-        width: 100%;
-        left: 0 !important;
-        padding-left: 30px;
-    }
+/* TIMELINE */
+.timeline::before {
+    left: 8px;
+}
 
-    .timeline-date {
-        position: relative;
-        top: auto;
-        right: auto;
-        transform: none;
-        margin-bottom: 10px;
-        display: inline-block;
-    }
+.timeline-item {
+    width: 100%;
+    left: 0 !important;
+    padding-left: 30px;
+}
 
-    /* PROJECTS */
-    .projects-container {
-        grid-template-columns: 1fr;
-        gap: 35px;
-        padding: 20px 10px;
-    }
+.timeline-date {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin-bottom: 10px;
+    display: inline-block;
+}
 
-    .project-card {
-        min-height: auto;
-    }
+/* PROJECTS */
+.projects-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 20px 10px;
+}
 
-    /* CONTACT */
-    .contact-box {
-        padding: 26px;
-    }
+.project-card {
+    min-height: auto;
+}
 
-    .contact-box p {
-        font-size: 1rem;
-    }
+/* CONTACT */
+.contact-box {
+    padding: 26px;
+}
+
+.contact-box p {
+    font-size: 1rem;
+}
 }
 
 /* =========================
@@ -1091,13 +1129,6 @@ section {
 }
 
 /* =========================
-   FIX HORIZONTAL OVERFLOW
-========================= */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-/* =========================
    REMOVE TIMELINE LINE – MOBILE ONLY
 ========================= */
 
@@ -1112,4 +1143,18 @@ html, body {
     .timeline {
         padding-left: 0;
     }
+}
+
+html,
+body {
+    width: 100%;
+
+}
+
+
+section {
+    padding: 90px 5%;
+    max-width: 1600px;
+    margin: 0 auto;
+    scroll-margin-top: var(--header-height);
 }
